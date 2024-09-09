@@ -12,7 +12,6 @@ export interface Country {
   flags: {
     svg: string;
   };
-  
 }
 
 interface CardProps {
@@ -21,26 +20,38 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ country }) => {
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: country.flags.svg }} style={styles.flag} />
-      <View style={styles.infoContainer}>
-        <Text style={styles.name}>{country.name.common}</Text>
-        <Text style={styles.detail}>
-          Population: <Text style={styles.value}>{country.population}</Text>
-        </Text>
-        <Text style={styles.detail}>
-          Region: <Text style={styles.value}>{country.region}</Text>
-        </Text>
-        <Text style={styles.detail}>
-          Capital: <Text style={styles.value}>{country.capital?.[0]}</Text>
-        </Text>
+    <View style={styles.container}>
+      <View style={styles.card}>
+        <Image source={{ uri: country.flags.svg }} style={styles.flag} />
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{country.name.common}</Text>
+          <Text style={styles.detail}>
+            Population: <Text style={styles.value}>{country.population}</Text>
+          </Text>
+          <Text style={styles.detail}>
+            Region: <Text style={styles.value}>{country.region}</Text>
+          </Text>
+          <Text style={styles.detail}>
+            Capital: <Text style={styles.value}>{country.capital?.[0]}</Text>
+          </Text>
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
   card: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "250px",
     backgroundColor: "#fff",
     borderRadius: 1,
     overflow: "hidden",
