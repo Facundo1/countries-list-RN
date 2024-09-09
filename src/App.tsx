@@ -3,19 +3,21 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
+  View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Card from "./components/Card";
+import { Country } from "./components/Card";
 import FloatingButton from "./components/FloatingButton";
 import Header from "./components/Header";
 import { useFetchCountries } from "./hooks/useFetchCountries";
 
 export default function App() {
   const { countries, loading, loadMore } = useFetchCountries();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("");
-  const flatListRef = React.useRef(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedRegion, setSelectedRegion] = useState<string>("");
+  const flatListRef = useRef<Country>(null);
 
   const filteredCountries = countries.filter((country) => {
     const matchesRegion = selectedRegion
@@ -44,8 +46,8 @@ export default function App() {
       <FlatList
         ref={flatListRef}
         data={filteredCountries}
-        renderItem={({ item }) => <Card country={item} />}
-        keyExtractor={(item) => item.cca3}
+        renderItem={({ item }: { item: Country }) => <Card country={item} />}
+        keyExtractor={(item: Country) => item.name}
         onEndReached={loadMore}
         onEndReachedThreshold={0.8}
         ListFooterComponent={

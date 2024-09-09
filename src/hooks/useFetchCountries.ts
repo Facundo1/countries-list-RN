@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { Country } from "../components/Card";
 
 export const useFetchCountries = () => {
-  const [countries, setCountries] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0);
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -12,8 +14,8 @@ export const useFetchCountries = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const data = await response.json();
-        setCountries(data.slice(0, (page + 1) * 10));
+        const data: Country[] = await response.json(); 
+        setCountries(data.slice(0, (page + 1) * 10)); 
         setLoading(false);
       } catch (error) {
         console.error("Fetching error: ", error);
